@@ -27,21 +27,6 @@ ld_frame = np.zeros((200,200,3),dtype='uint8')
 
 port = serial.Serial("/dev/serial0", baudrate=115200, stopbits=serial.STOPBITS_ONE)
 
-def joy_controll():
-    global sp1, sp2, sp3, sp4, dribler, kicker, zummer, flag_stop, flag_start
-    if len(robot.messageFromPC) == 17:
-        sp1 += int(robot.messageFromPC[0:3]) - 200
-        sp2 += int(robot.messageFromPC[3:6]) - 200
-        sp3 += int(robot.messageFromPC[6:9]) - 200
-        sp4 += int(robot.messageFromPC[9:12]) - 200
-        dribler += int(robot.messageFromPC[12:13])*10
-        if kicker == 0:
-            kicker = int(robot.messageFromPC[13:14])
-        if zummer == 0:
-            zummer = int(robot.messageFromPC[14:15])
-        flag_stop = int(robot.messageFromPC[15:16])
-        flag_start = int(robot.messageFromPC[16:17])
-
 def pd(angle, target):
     if target > angle:
         e = target - angle
@@ -1169,9 +1154,6 @@ while 1:
         flag_start = 0
         flag_stop = 0
         first_start = 0
-
-
-    joy_controll()
 
     #стоп
     if flag_stop:
