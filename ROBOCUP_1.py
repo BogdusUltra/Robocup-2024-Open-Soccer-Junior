@@ -74,21 +74,6 @@ class validFlag():
         self.validFlag = flag
         self.flagTime = False
 
-def joy_controll():
-    global sp1, sp2, sp3, sp4, dribler, kicker, zummer, flag_stop, flag_start
-    if len(robot.messageFromPC) == 17:
-        sp1 += int(robot.messageFromPC[0:3]) - 200
-        sp2 += int(robot.messageFromPC[3:6]) - 200
-        sp3 += int(robot.messageFromPC[6:9]) - 200
-        sp4 += int(robot.messageFromPC[9:12]) - 200
-        dribler += int(robot.messageFromPC[12:13])*10
-        if kicker == 0:
-            kicker = int(robot.messageFromPC[13:14])
-        if zummer == 0:
-            zummer = int(robot.messageFromPC[14:15])
-        flag_stop = int(robot.messageFromPC[15:16])
-        flag_start = int(robot.messageFromPC[16:17])
-
 def detectHomeGoal(hsv, low1, up1, low2, up2, side=0):
     if side ==0:
         mask1 = cv2.inRange(hsv[shapeY//2:shapeY,0:shapeX], low1, up1)
@@ -1333,8 +1318,6 @@ while 1:
         flag_start = 0
         flag_stop = 0
         first_start = 0
-
-    joy_controll()
 
     #стоп
     if flag_stop:
